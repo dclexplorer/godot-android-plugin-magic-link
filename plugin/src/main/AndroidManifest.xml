@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application>
-        <!--
-        Plugin metadata:
+        <!-- AndroidManifest.xml -->
+        <activity
+            android:name=".MagicLinkActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+        </activity>
 
-        - In the `android:name` attribute, the `org.godotengine.plugin.v2` prefix
-        is required so Godot can recognize the project as a valid Godot
-        Android plugin. The plugin name following the prefix should match the value
-        of the plugin name returned by the plugin initializer.
 
-        - The `android:value` attribute should be the classpath to the plugin
-        initializer.
-        -->
         <meta-data
             android:name="org.godotengine.plugin.v2.${godotPluginName}"
-            android:value="${godotPluginPackageName}.GodotAndroidPlugin"/>
+            android:value="${godotPluginPackageName}.GodotAndroidPlugin" />
+
+
+        <!-- OAuth Activity -->
+        <activity android:name="link.magic.android.extension.oauth.customTab.CustomTabMainActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
+        <activity
+            android:name="link.magic.android.extension.oauth.customTab.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="org.decentraland.godotexplorer" android:host="callback"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

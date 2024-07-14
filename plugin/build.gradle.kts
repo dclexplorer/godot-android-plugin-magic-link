@@ -5,22 +5,20 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-// TODO: Update value to your plugin's name.
-val pluginName = "GodotAndroidPluginTemplate"
+val pluginName = "GodotAndroidPluginMagicLink"
 
-// TODO: Update value to match your plugin's package name.
-val pluginPackageName = "org.godotengine.plugin.android.template"
+val pluginPackageName = "org.godotengine.plugin.android.magiclink"
 
 android {
     namespace = pluginPackageName
-    compileSdk = 33
+    compileSdk = 34
 
     buildFeatures {
         buildConfig = true
     }
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 24
 
         manifestPlaceholders["godotPluginName"] = pluginName
         manifestPlaceholders["godotPluginPackageName"] = pluginPackageName
@@ -38,8 +36,17 @@ android {
 }
 
 dependencies {
-    implementation("org.godotengine:godot:4.2.0.stable")
+    implementation("org.godotengine:godot:4.2.1.stable")
     // TODO: Additional dependencies should be added to export_plugin.gd as well.
+    implementation("link.magic:magic-android:10.4.1")
+    implementation("link.magic:magic-ext-oauth:5.0.1")
+    implementation("link.magic:magic-ext-oidc:2.0.4")
+    implementation("org.web3j:core:4.8.8-android")
+    implementation("org.web3j:geth:4.8.8-android")
+
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }
 
 // BUILD TASKS DEFINITION
@@ -63,19 +70,36 @@ val cleanDemoAddons by tasks.registering(Delete::class) {
 
 val copyAddonsToDemo by tasks.registering(Copy::class) {
     description = "Copies the export scripts templates to the plugin's addons directory"
-
     dependsOn(cleanDemoAddons)
-    finalizedBy(copyDebugAARToDemoAddons)
-    finalizedBy(copyReleaseAARToDemoAddons)
+    mustRunAfter(copyDebugAARToDemoAddons, copyReleaseAARToDemoAddons)
 
     from("export_scripts_template")
     into("demo/addons/$pluginName")
+}
+
+val copyToParentAddons by tasks.registering(Copy::class) {
+    description = "Copies the contents of demo/addons/$pluginName to ../addons/$pluginName"
+    dependsOn(copyAddonsToDemo, copyDebugAARToDemoAddons, copyReleaseAARToDemoAddons)
+    mustRunAfter(copyAddonsToDemo)
+
+    from("demo/addons/$pluginName")
+    into("../addons/$pluginName")
 }
 
 tasks.named("assemble").configure {
     finalizedBy(copyAddonsToDemo)
 }
 
-tasks.named<Delete>("clean").apply {
+tasks.named<Delete>("clean").configure {
     dependsOn(cleanDemoAddons)
+}
+
+// Ensure copyToParentAddons runs after copyAddonsToDemo
+tasks.named("copyAddonsToDemo").configure {
+    finalizedBy(copyToParentAddons)
+}
+
+// Ensure that copyDebugAARToDemoAddons and copyReleaseAARToDemoAddons must run after cleanDemoAddons
+tasks.named("cleanDemoAddons").configure {
+    finalizedBy(copyDebugAARToDemoAddons, copyReleaseAARToDemoAddons)
 }

@@ -2,18 +2,116 @@
 
 [ext_resource type="Script" path="res://main.gd" id="1_j0gfq"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_j0gfq")
 
-[node name="Button" type="Button" parent="."]
-anchors_preset = 14
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 40.0
-offset_top = 250.0
-offset_right = 320.0
-offset_bottom = 312.0
-text = "Hello World"
+offset_left = -245.5
+offset_top = -107.0
+offset_right = 245.5
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
 
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[node name="HBoxContainerEmail" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainerEmail"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Email:"
+
+[node name="TextEditEmail" type="LineEdit" parent="VBoxContainer/HBoxContainerEmail"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "kurukdev@gmail.com"
+placeholder_text = "Your email"
+
+[node name="ButtonLogin" type="Button" parent="VBoxContainer/HBoxContainerEmail"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Login"
+
+[node name="HBoxContainerSocial" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonGoogle" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Google"
+
+[node name="ButtonX" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "X"
+
+[node name="ButtonApple" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Apple"
+
+[node name="ButtonMeta" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Meta"
+
+[node name="ButtonDiscord" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Discord"
+
+[node name="HBoxContainerSign" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextEditSignMessage" type="LineEdit" parent="VBoxContainer/HBoxContainerSign"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "hello world!"
+placeholder_text = "Message to sign"
+
+[node name="ButtonSignMessage" type="Button" parent="VBoxContainer/HBoxContainerSign"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Sign"
+
+[node name="HBoxContainerActions" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ButtonOpenWallet" type="Button" parent="VBoxContainer/HBoxContainerActions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Open Wallet"
+
+[node name="ButtonIsConnected" type="Button" parent="VBoxContainer/HBoxContainerActions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "IsConnected"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainerEmail/ButtonLogin" to="." method="_on_button_login_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonGoogle" to="." method="_on_button_google_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonX" to="." method="_on_button_x_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonApple" to="." method="_on_button_apple_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonMeta" to="." method="_on_button_meta_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonDiscord" to="." method="_on_button_discord_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainerSign/ButtonSignMessage" to="." method="_on_button_sign_message_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainerActions/ButtonOpenWallet" to="." method="_on_button_open_wallet_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainerActions/ButtonIsConnected" to="." method="_on_button_is_connected_pressed"]
