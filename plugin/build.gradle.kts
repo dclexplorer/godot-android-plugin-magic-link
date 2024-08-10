@@ -38,7 +38,7 @@ android {
 dependencies {
     implementation("org.godotengine:godot:4.2.1.stable")
     // TODO: Additional dependencies should be added to export_plugin.gd as well.
-    implementation("link.magic:magic-android:10.4.1")
+    implementation("link.magic:magic-android:10.6.0")
     implementation("link.magic:magic-ext-oauth:5.0.1")
     implementation("link.magic:magic-ext-oidc:2.0.4")
     implementation("org.web3j:core:4.8.8-android")

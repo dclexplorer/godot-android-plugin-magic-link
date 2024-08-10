@@ -9,6 +9,8 @@ var public_address: String = ""
 
 static var _plugin_singleton = null
 
+signal connected(address: String)
+signal logout()
 
 func get_singleton():
 	if _plugin_singleton != null:
@@ -25,16 +27,25 @@ func get_singleton():
 func _on_connected(address: String):
 	public_address = address
 	wallet_connected = true
+	
+	connected.emit(address)
 
 
-func setup(magic_key: String, network: String = "ethereum"):
+func _on_logout():
+	public_address = ""
+	wallet_connected = false
+	
+	logout.emit()
+
+func setup(magic_key: String, callback_url: String, network: String = "ethereum"):
 	var singleton = get_singleton()
 	if singleton == null:
 		printerr("Initialization error")
 		return
 
-	singleton.setup(magic_key, network)
+	singleton.setup(magic_key, callback_url, network)
 	singleton.connected.connect(self._on_connected)
+	singleton.on_logout.connect(self._on_logout)
 
 
 func async_check_connection() -> bool:
@@ -67,6 +78,15 @@ func async_login_social(oauth_provider: String):
 	singleton.loginSocial(oauth_provider)
 	await singleton.connected
 
+
+func async_logout():
+	var singleton = get_singleton()
+	if singleton == null:
+		printerr("Initialization error")
+		return
+
+	singleton.logout()
+	await singleton.on_logout
 
 func open_wallet():
 	if wallet_connected != true:

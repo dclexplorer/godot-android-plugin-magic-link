@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg3hylang5fxn"]
+[gd_scene load_steps=3 format=3 uid="uid://cg3hylang5fxn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_j0gfq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10dv4"]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -11,30 +19,49 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j0gfq")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TabBar" type="TabContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -245.5
-offset_top = -107.0
-offset_right = 245.5
-offset_bottom = 107.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+tabs_visible = false
 
-[node name="HBoxContainerEmail" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Label_Loading" type="Label" parent="TabBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Login" type="MarginContainer" parent="TabBar"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabBar/Login"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="TabBar/Login/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Login:"
+horizontal_alignment = 1
+
+[node name="HBoxContainerEmail" type="HBoxContainer" parent="TabBar/Login/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainerEmail"]
+[node name="Label" type="Label" parent="TabBar/Login/VBoxContainer/HBoxContainerEmail"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Email:"
 
-[node name="TextEditEmail" type="LineEdit" parent="VBoxContainer/HBoxContainerEmail"]
+[node name="TextEditEmail" type="LineEdit" parent="TabBar/Login/VBoxContainer/HBoxContainerEmail"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -42,43 +69,87 @@ theme_override_font_sizes/font_size = 24
 text = "kurukdev@gmail.com"
 placeholder_text = "Your email"
 
-[node name="ButtonLogin" type="Button" parent="VBoxContainer/HBoxContainerEmail"]
+[node name="ButtonLogin" type="Button" parent="TabBar/Login/VBoxContainer/HBoxContainerEmail"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Login"
 
-[node name="HBoxContainerSocial" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="TabBar/Login/VBoxContainer"]
 layout_mode = 2
 
-[node name="ButtonGoogle" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+[node name="Label2" type="Label" parent="TabBar/Login/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Social login"
+horizontal_alignment = 1
+
+[node name="HBoxContainerSocial1" type="HBoxContainer" parent="TabBar/Login/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonGoogle" type="Button" parent="TabBar/Login/VBoxContainer/HBoxContainerSocial1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Google"
 
-[node name="ButtonX" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+[node name="ButtonX" type="Button" parent="TabBar/Login/VBoxContainer/HBoxContainerSocial1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "X"
+text = "Twitter"
 
-[node name="ButtonApple" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+[node name="ButtonApple" type="Button" parent="TabBar/Login/VBoxContainer/HBoxContainerSocial1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Apple"
 
-[node name="ButtonMeta" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+[node name="HBoxContainerSocial2" type="HBoxContainer" parent="TabBar/Login/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonMeta" type="Button" parent="TabBar/Login/VBoxContainer/HBoxContainerSocial2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Meta"
 
-[node name="ButtonDiscord" type="Button" parent="VBoxContainer/HBoxContainerSocial"]
+[node name="ButtonDiscord" type="Button" parent="TabBar/Login/VBoxContainer/HBoxContainerSocial2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Discord"
 
-[node name="HBoxContainerSign" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Connected" type="MarginContainer" parent="TabBar"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer_Connected" type="VBoxContainer" parent="TabBar/Connected"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabBar/Connected/VBoxContainer_Connected"]
 layout_mode = 2
 
-[node name="TextEditSignMessage" type="LineEdit" parent="VBoxContainer/HBoxContainerSign"]
+[node name="Label" type="Label" parent="TabBar/Connected/VBoxContainer_Connected/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Connected, address:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelAddress" type="Label" parent="TabBar/Connected/VBoxContainer_Connected/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "0x00000000000000000000000000000000000000000"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabBar/Connected/VBoxContainer_Connected"]
+layout_mode = 2
+
+[node name="TextEditSignMessage" type="LineEdit" parent="TabBar/Connected/VBoxContainer_Connected/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -86,32 +157,79 @@ theme_override_font_sizes/font_size = 36
 text = "hello world!"
 placeholder_text = "Message to sign"
 
-[node name="ButtonSignMessage" type="Button" parent="VBoxContainer/HBoxContainerSign"]
+[node name="ButtonSignMessage" type="Button" parent="TabBar/Connected/VBoxContainer_Connected/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Sign"
 
-[node name="HBoxContainerActions" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="ButtonOpenWallet" type="Button" parent="VBoxContainer/HBoxContainerActions"]
+[node name="ButtonOpenWallet" type="Button" parent="TabBar/Connected/VBoxContainer_Connected"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Open Wallet"
 
-[node name="ButtonIsConnected" type="Button" parent="VBoxContainer/HBoxContainerActions"]
+[node name="ButtonLogout" type="Button" parent="TabBar/Connected/VBoxContainer_Connected"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "IsConnected"
+text = "Logout"
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainerEmail/ButtonLogin" to="." method="_on_button_login_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonGoogle" to="." method="_on_button_google_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonX" to="." method="_on_button_x_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonApple" to="." method="_on_button_apple_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonMeta" to="." method="_on_button_meta_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainerSocial/ButtonDiscord" to="." method="_on_button_discord_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainerSign/ButtonSignMessage" to="." method="_on_button_sign_message_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainerActions/ButtonOpenWallet" to="." method="_on_button_open_wallet_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainerActions/ButtonIsConnected" to="." method="_on_button_is_connected_pressed"]
+[node name="SignaturePopup" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -200.0
+offset_right = 150.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_10dv4")
+
+[node name="MarginContainer" type="MarginContainer" parent="SignaturePopup"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SignaturePopup/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SignaturePopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Signature:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelSignature" type="Label" parent="SignaturePopup/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0x?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ButtonCloseSignature" type="Button" parent="SignaturePopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Close"
+
+[connection signal="pressed" from="TabBar/Login/VBoxContainer/HBoxContainerEmail/ButtonLogin" to="." method="_on_button_login_pressed"]
+[connection signal="pressed" from="TabBar/Login/VBoxContainer/HBoxContainerSocial1/ButtonGoogle" to="." method="_on_button_google_pressed"]
+[connection signal="pressed" from="TabBar/Login/VBoxContainer/HBoxContainerSocial1/ButtonX" to="." method="_on_button_x_pressed"]
+[connection signal="pressed" from="TabBar/Login/VBoxContainer/HBoxContainerSocial1/ButtonApple" to="." method="_on_button_apple_pressed"]
+[connection signal="pressed" from="TabBar/Login/VBoxContainer/HBoxContainerSocial2/ButtonMeta" to="." method="_on_button_meta_pressed"]
+[connection signal="pressed" from="TabBar/Login/VBoxContainer/HBoxContainerSocial2/ButtonDiscord" to="." method="_on_button_discord_pressed"]
+[connection signal="pressed" from="TabBar/Connected/VBoxContainer_Connected/HBoxContainer/ButtonSignMessage" to="." method="_on_button_sign_message_pressed"]
+[connection signal="pressed" from="TabBar/Connected/VBoxContainer_Connected/ButtonOpenWallet" to="." method="_on_button_open_wallet_pressed"]
+[connection signal="pressed" from="TabBar/Connected/VBoxContainer_Connected/ButtonLogout" to="." method="_on_button_logout_pressed"]
+[connection signal="pressed" from="SignaturePopup/MarginContainer/VBoxContainer/ButtonCloseSignature" to="." method="_on_button_close_signature_pressed"]

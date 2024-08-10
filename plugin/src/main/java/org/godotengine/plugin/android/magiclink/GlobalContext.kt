@@ -8,4 +8,6 @@ object GlobalContext {
     lateinit var gethWeb3j: Geth
 
     var address: String? = null
+
+    lateinit var callbackUrl: String
 }

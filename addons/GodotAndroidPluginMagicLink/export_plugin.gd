@@ -35,7 +35,7 @@ class AndroidExportPlugin:
 	func _get_android_dependencies(_platform, _debug):
 		var default_dependencies = PackedStringArray(
 			[
-				"link.magic:magic-android:10.4.1",
+				"link.magic:magic-android:10.6.0",
 				"link.magic:magic-ext-oauth:5.0.1",
 				"link.magic:magic-ext-oidc:2.0.4",
 				"org.web3j:core:4.8.8-android",
