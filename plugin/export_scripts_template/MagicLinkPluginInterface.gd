@@ -1,6 +1,7 @@
 class_name MagicLinkPluginInterface
 
-## Interface used to access the functionality provided by this plugin
+signal connected(address: String)
+signal logout
 
 const PLUGIN_NAME = "GodotAndroidPluginMagicLink"
 
@@ -9,8 +10,6 @@ var public_address: String = ""
 
 static var _plugin_singleton = null
 
-signal connected(address: String)
-signal logout()
 
 func get_singleton():
 	if _plugin_singleton != null:
@@ -27,15 +26,16 @@ func get_singleton():
 func _on_connected(address: String):
 	public_address = address
 	wallet_connected = true
-	
+
 	connected.emit(address)
 
 
 func _on_logout():
 	public_address = ""
 	wallet_connected = false
-	
+
 	logout.emit()
+
 
 func setup(magic_key: String, callback_url: String, network: String = "ethereum"):
 	var singleton = get_singleton()
@@ -87,6 +87,7 @@ func async_logout():
 
 	singleton.logout()
 	await singleton.on_logout
+
 
 func open_wallet():
 	if wallet_connected != true:
